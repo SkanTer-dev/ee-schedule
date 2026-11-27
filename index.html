@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EE Broadcast Hub — Календарь Кастера</title>
+<link rel="icon" type="image/png" href="./logo-main.png">
 <style>
   :root {
     --bg: #0c0d10; --card: #15171e; --card2: #1c1f29; --brd: #2a2e3d;
@@ -17,7 +18,7 @@
   /* Header */
   .top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background: var(--card); padding: 14px 18px; border-radius: 12px; border: 1px solid var(--brd); }
   .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
-  .brand img { width: 42px; height: 42px; border-radius: 8px; background: #0a0a0c; border: 1px solid var(--brd); flex-shrink: 0; }
+  .brand img { width: 42px; height: 42px; border-radius: 8px; background: #0a0a0c; border: 1px solid var(--brd); flex-shrink: 0; object-fit: contain; padding: 3px; }
   .brand h1 { margin: 0; font-size: 1.18rem; letter-spacing: 0.4px; white-space: nowrap; }
   .brand small { color: var(--mut); font-size: 0.78rem; display: flex; align-items: center; gap: 6px; margin-top: 2px; }
   .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yes); display: inline-block; flex-shrink: 0; }
@@ -25,7 +26,7 @@
   .top-right { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
   .tabs { background: var(--bg); padding: 4px; border-radius: 9px; display: flex; gap: 4px; border: 1px solid var(--brd); }
   .tab { background: transparent; border: none; color: var(--mut); padding: 7px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; white-space: nowrap; }
-  .tab img { width: 18px; height: 18px; border-radius: 4px; background: #0a0a0c; flex-shrink: 0; }
+  .tab img { width: 18px; height: 18px; border-radius: 4px; background: #0a0a0c; flex-shrink: 0; object-fit: contain; padding: 1px; }
   .tab.act { background: var(--red); color: #fff; }
 
   .auth-bar { display: flex; align-items: center; gap: 8px; }
@@ -67,7 +68,7 @@
   .num { width: 23px; height: 23px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px; }
   .today .num { background: var(--red); color: #fff; }
   .pill { font-size: 0.7rem; padding: 3px 5px; border-radius: 4px; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-left: 3px solid var(--pend); background: var(--card2); display: flex; align-items: center; gap: 4px; }
-  .pill img { width: 13px; height: 13px; border-radius: 2px; flex-shrink: 0; }
+  .pill img { width: 14px; height: 14px; border-radius: 2px; flex-shrink: 0; object-fit: contain; }
   .pill.yes { border-left-color: var(--yes); }
   .pill.no { border-left-color: var(--no); }
   .pill.casted { text-decoration: line-through; opacity: 0.6; }
@@ -94,7 +95,9 @@
   .m-card.no { border-left-color: var(--no); }
   .m-card.is-next { box-shadow: 0 0 0 1px rgba(220,38,38,0.5); }
   .card-left { display: flex; align-items: flex-start; gap: 12px; flex: 1; min-width: 240px; }
-  .card-logo { width: 44px; height: 44px; border-radius: 8px; background: #0a0a0c; border: 1px solid var(--brd); flex-shrink: 0; }
+  .card-logo { width: 44px; height: 44px; border-radius: 8px; background: #0a0a0c; border: 1px solid var(--brd); flex-shrink: 0; object-fit: contain; padding: 3px; }
+  .logo-acad { filter: grayscale(100%) brightness(1.15); }
+
   .badges { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; margin-bottom: 5px; }
   .badge { padding: 2px 7px; border-radius: 4px; font-size: 0.69rem; font-weight: 700; text-transform: uppercase; }
   .b-ros { background: rgba(220,38,38,0.2); color: #fca5a5; }
@@ -190,7 +193,7 @@
       <div class="tabs">
         <button class="tab act" onclick="setRos('ALL',this)">Все</button>
         <button class="tab" onclick="setRos('MAIN',this)"><img id="tabMainLogo" alt=""> Основной</button>
-        <button class="tab" onclick="setRos('ACAD',this)"><img id="tabAcadLogo" alt=""> Академия</button>
+        <button class="tab" onclick="setRos('ACAD',this)"><img id="tabAcadLogo" class="logo-acad" alt=""> Академия</button>
       </div>
       <div class="auth-bar">
         <button class="btn-primary" id="btnAddOpen" style="display:none" onclick="openEventModal()">+ Добавить</button>
@@ -333,8 +336,9 @@
   const FIREBASE_API_KEY = "AIzaSyCadNGo9U7BnliTz9YB_1ipDOUrjzVmbRc";
   // ==========================
 
-  const LOGO_MAIN = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAD1ElEQVR4nO2dQU7lMBBEzWhWMHMBxG723P8c7NgjLoD+emZlEaIwPz9xu6u66i2RQHbXSzt2UHJ3f//rbzOy/MgegMnFAohjAcSxAOJYAHEsgDgWQBwLII4FEMcCiGMBxLEA4lgAcSyAOBZAnJ/ZA5jFy9Pjzb/z/PYeMBIs7ir+Q8iRsPdSTYoSAkQGfg12IagFyAx+DasIdAIghf4dTDLQCMAQ/BoGEeAFYAx+DbII0OcAFcJvDXsekB0AuWBnQesGcB2gcvit4c0PSgC04kSBNE+IJQCpILPJXhLSBZgV/pFCI49tFKkCsJ3Zs413D2kCRBRzZhHZx99JEWB08TJbKPtcpgswsmDZN1BLWOc1VYBRRUIKfg3bHKHOAfaAHH5r+ONbM60DnL0y2ArbGsecp3QAhkJEcHbcM84hwgVQDb9zdPx/Xl9ba/ESQP9XMHv4nee39y9B9nARCBXgjL2s4V8uH8P/5svTY1g9wgSoGH5EuHuJkgBuCcgKPzPcTNKfBs7mcvloDw+/N3+OxtY4RwPXAc6AGCI6NAI43BggBHC4eYQL4HC3mbG+72GoAJH7VTYiAx5Z5/BdAGIHOLsLQLl6R0D3ONiMxQKIA7ELGEml9jwDOgEc8FigBFAO97sj6migBKgG4g5ojQU4AEOwe/EuQBwLIE55ASq16wgo7wEc6jigBHCw8ym/BJj/A9UBKoJ+uGUBDoAe6i14CRDHAohjAcShvQeotA5nAiWAQ/1k1uNhKAFUQDrwsgABIAV8DQtwAKaAr+FdgDhyAlS6ekdQaglwuLdDJYADHg+UAA54PlACKIFy6GUBAkAJdw8W4EaYwt2DBVhQLdw9DD0HYP76F1P4I+tc7g0hTEEiQLUEONzxwAjgcHOYIoDDxUXuXcHmK3Cvi1d4zyBSbeAeBzNvJfeANr8wAc7YilakUSB+RCO0A1iCTxDDbw1wCVhSRQLkeYQLwPDtvEjQP5s3pQOoSoAefmuEH49m2CYyzRP6HmAL9G6APr41008CRxYIqRuwzivlKHj0VZIpAvtc0p4FRLTKmcVjH38n9WFQ5HoZUUy28e4h/WngrJumIwVGHtso0gVoje/OeSTZN7IQAnSURMgOvgN1DoBSlGiQ5gklQGtYxYkAbX5QS8CaSksCWvAduA6wBLVot4I8D+gOsISxGyAH36ERoMMgAkPwHToBliDJwBT6EmoBOpkisAbfKSHAmopn9lGUFGCLI1JUC3sLGQHMNtDnACYeCyCOBRDHAohjAcSxAOJYAHEsgDgWQBwLII4FEMcCiGMBxLEA4vwDoKxgEvSWJWwAAAAASUVORK5CYII=";
-  const LOGO_ACAD = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAD7UlEQVR4nO2du07kQBBFm9VGsPsDiIyAbP7/O8gmIBvND6CJdyMLY3mMH1Vdt+reEyIE3X2Pqx+27IfHxz//mqDlV3QDRCwSgBwJQI4EIEcCkCMByJEA5EgAciQAORKAHAlADr0A7y/P0U0I5YHxZtBS6KfLtWNL4qESYOvVziBDeQEsS3xFIcoK4D23V5GhlABRC7rMMqQXAG0Vn02GtAKgBT9HBhlSCZAh9CUQhYAXIHvo90CRAVaAqsHPESnD77D/PINC7w+EAAo+jrApgCn0KUgSdBWAOfQpKBJ0EUDB3ydaBDcBFPp6IiVQBQAhSgL6J4K2crpcXcKKukhUAVawFLh133pXAgmwwJYwsj54IgEmHB18q772kgDiJDAay8E+Xa6phE9TAYaQMpXao23tUQVSCGC5COu9yEKXwF2AngOA+rz/njF4PZ/bx9tba8237dBrgK0dH//++8tz+DHrwHRd8Ho+B7bmO64V4MjVjxLeVm63T7O/NVSA1vzGw60CVAzfMtyteFU0uCkgKvzIcCOBfSbQi9vtsz09/Z39ORpz7bQGrgIcATFEdNIIoHB9gBBA4cbhLoDCnafH/L4GUwGQDl+i8QzYcpzddwGIFeDoLgDl6rVAj4SRIwHIgdgFWFKpPPcgnQAK2BYoAZjDvXdE7Q2UANVA3AFNkQA7yBDsWrQLIEcCkFNegErl2oOUawCFageUAAq2P+WnALEMVAWoCPrhlgTYAXqoW9AUQI4EIEcCkJN2DVBpHo4ESgCF+kWv28NQArCAdOAlARxACvgnJMAOMgX8E9oFkEMnQKWr14JSU4DC3U4qARSwPVACKOD+QAnABMqhlwRwACXcNUiAjWQKdw0SYES1cNdgeg6Q6TXpUzKFbznO5d4QkilIBFJNAQrXHhgBFG4MXQRQuLjQvStYfAfudfEM7xlEGhu428GZt5JrQOufmwBHbEUbJCsQP6LhWgEkwReI4bcGOAWMqSIBcj/cBUD5FGsU6N8N7FIBWCVAD7+1zucAlp+QRSZTP6HXAHOgVwP09k3pfhKY6ePPW8jar5CjYOurJNt3gZfo3ZewewEepbLn4GVv/0DozSDP+dJjMLO1dw3hdwN7LZr2DDBy26wIF6C1fCtnS6IXshACDDCJEB38ANQ5AMqgeIPUTygBWsMaHA/Q+gc1BUypNCWgBT8AVwHGoA7aVpD7AV0BxmSsBsjBD6QRYCCDCBmCH0gnwBgkGTKFPia1AAORImQNfqCEAFMqntl7UVKAOfZIUS3sOWgEEPNAnwMIfyQAORKAHAlAjgQgRwKQIwHIkQDkSAByJAA5EoAcCUCOBCBHApDzH8OvfgQX4q0ZAAAAAElFTkSuQmCC";
+  // Логотипы (должны лежать в корне репозитория рядом с index.html)
+  const LOGO_MAIN = "./logo-main.png";
+  const LOGO_ACAD = "./logo-acad.png";
 
   document.getElementById('brandLogo').src = LOGO_MAIN;
   document.getElementById('tabMainLogo').src = LOGO_MAIN;
@@ -699,6 +703,7 @@
         p.className = 'pill ' + (e.st || 'pend') + (e.casted ? ' casted' : '');
         const img = document.createElement('img');
         img.src = e.ros === 'ACAD' ? LOGO_ACAD : LOGO_MAIN;
+        if (e.ros === 'ACAD') img.classList.add('logo-acad');
         const txt = document.createElement('span');
         const prefix = e.mode === 'range' ? '🏆 ' : (e.dt && e.dt.length >= 16 ? e.dt.slice(11, 16) + ' ' : '');
         txt.textContent = prefix + e.title;
@@ -751,7 +756,7 @@
       left.className = 'card-left';
 
       const logo = document.createElement('img');
-      logo.className = 'card-logo';
+      logo.className = 'card-logo' + (e.ros === 'ACAD' ? ' logo-acad' : '');
       logo.src = e.ros === 'ACAD' ? LOGO_ACAD : LOGO_MAIN;
 
       const info = document.createElement('div');
